@@ -370,6 +370,7 @@ export const linkSocialAccount = createAuthEndpoint(
 			codeVerifier: state.codeVerifier,
 			redirectURI: `${c.context.baseURL}/callback/${provider.id}`,
 			scopes: c.body.scopes,
+			loginHint: c.body.loginHint,
 		});
 
 		if (!c.body.disableRedirect) {
@@ -461,6 +462,13 @@ export const getAccessToken = createAuthEndpoint(
 				.string()
 				.meta({
 					description: "The user ID associated with the account",
+				})
+				.optional(),
+			loginHint: z
+				.string()
+				.meta({
+					description:
+						"The login hint to use for the authorization code request",
 				})
 				.optional(),
 		}),
